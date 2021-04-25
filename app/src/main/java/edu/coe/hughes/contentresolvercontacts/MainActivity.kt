@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun beforeTextChanged(s: CharSequence, start:Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start:Int, before: Int, count: Int) {}
+            override fun onTextChanged(s: CharSequence, start:Int, before: Int, count: Int) {contacts}
         });
     }
 
@@ -62,9 +62,11 @@ class MainActivity : AppCompatActivity() {
         get() {
             // create cursor and query the data
 
+            val stri: CharSequence? = personName!!.text.toString()
+
             val uri: Uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
             //val cursor = contentResolver.query(uri, null, null, null, null)
-            val cursor = contentResolver.query(uri, null, "DISPLAY_NAME = 'Jon White'", null, null)
+            val cursor = contentResolver.query(uri, null, "DISPLAY_NAME LIKE '%$stri%' ", null, null)
 
             val data = arrayOf(ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
             val to = intArrayOf(android.R.id.text1, android.R.id.text2)
